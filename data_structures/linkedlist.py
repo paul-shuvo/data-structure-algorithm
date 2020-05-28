@@ -8,7 +8,6 @@ class Node:
 class SinglyLinkedList:
     def __init__(self):
         self.head = None
-        self.cur = None
         self.length = 0
 
     def __len__(self):
@@ -22,14 +21,14 @@ class SinglyLinkedList:
             node_pointer = node_pointer.next
         return str_val[:-1]
     
-    def add(self, data):
+    def insert(self, data):
         node = Node(data)
         if self.head is None:
-             self.head = node
-             self.cur = self.head
+            self.head = node
         else:
-            self.cur.next = node
-            self.cur = self.cur.next
+            temp_list = self.head
+            self.head = node
+            self.head.next = temp_list
         self.length += 1
 
     def remove(self, value):
@@ -38,20 +37,17 @@ class SinglyLinkedList:
             self.length -= 1
             return
 
-        node_pointer = self.head
-        while node_pointer.next is not None:
-            if node_pointer.next.data == value:
-                node_pointer.next = node_pointer.next.next
-                # Check if the last element is removed or not
-                # If it is the last element then assign the node_pointer
-                # to the self.cur
-                if node_pointer.next is None:
-                    self.cur = node_pointer
+        node_prev = self.head
+        node_cur = node_prev.next
+        while node_cur is not None:
+            if node_cur.data == value:
+                node_prev.next = node_cur.next
                 self.length -= 1
                 return
-            node_pointer = node_pointer.next
+            node_prev = node_cur
+            node_cur = node_cur.next
 
-    def insert(self, index, value):
+    def insert_at(self, index, value):
         if index > self.length:
             raise IndexError(f'index: {index} greater than the list length: {self.length}')
         node = Node(value)
@@ -61,16 +57,11 @@ class SinglyLinkedList:
             self.head.next = node_pointer
             self.length += 1
             return
-        elif index == self.length:
-            self.cur.next = node
-            self.cur = self.cur.next
-            self.length += 1
-            return
         
         node_prev = self.head
-        node_cur = self.head.next
+        node_cur = node_prev.next
         index_ = 1
-        while node_cur.next is not None:
+        while node_cur is not None:
             if index_ == index:
                 node_prev.next = node
                 node_prev.next.next = node_cur
@@ -79,17 +70,41 @@ class SinglyLinkedList:
             node_prev = node_cur
             node_cur = node_cur.next
             index_ += 1
+        node_prev.next = node
+        self.length += 1
+    
+    def remove_from(self, index):
+        if index >= self.length:
+            raise IndexError(f'index: {index} greater than the list length: {self.length}')
+
+        if index == 0:
+            self.head = self.head.next
+            self.length -= 1
+            return
+        
+        node_prev = self.head
+        node_cur = node_prev.next
+        index_ = 1
+        while node_cur is not None:
+            if index_ == index:
+                node_prev.next = node_cur.next
+                self.length -= 1
+                return
+            node_prev = node_cur
+            node_cur = node_cur.next
+            index_ += 1
+
 
 # a = Node(5)
 # print(a)
 
-sll = SinglyLinkedList()
-sll.add(10)
-sll.add(7)
-sll.add(2.689)
-sll.add('Hello')
-sll.insert(2,100)
-print(sll)
+# sll = SinglyLinkedList()
+# sll.add(10)
+# sll.add(7)
+# sll.add(2.689)
+# sll.add('Hello')
+# sll.insert(2,100)
+# print(sll)
 # sll.add(12)
 # print(sll)
 # sll.remove(10)
