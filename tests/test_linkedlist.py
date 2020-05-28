@@ -75,3 +75,31 @@ def test_remove_at():
     sll.remove_from(2)
     assert str(sll) == '4,2'
     assert sll.head.next.next is None
+
+def test_find():
+    sll = SinglyLinkedList()
+    assert sll.find(10) == -1
+    
+    sll.insert(1)
+    sll.insert(2)
+    sll.insert(3)
+    sll.insert(4)
+    
+    assert sll.find(3) == 1
+    assert sll.find(10) == -1
+
+def test_find_at():
+    sll = SinglyLinkedList()
+    with pytest.raises(IndexError):
+        sll.find_at(0)
+    
+    sll.insert(1)
+    sll.insert(2)
+    sll.insert(3)
+    sll.insert(4)
+    
+    assert sll.find_at(3) == 1
+    assert sll.find_at(0) == 4
+
+    with pytest.raises(IndexError):
+        assert sll.find_at(4)

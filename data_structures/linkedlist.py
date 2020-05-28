@@ -94,28 +94,26 @@ class SinglyLinkedList:
             node_cur = node_cur.next
             index_ += 1
 
-
-# a = Node(5)
-# print(a)
-
-# sll = SinglyLinkedList()
-# sll.add(10)
-# sll.add(7)
-# sll.add(2.689)
-# sll.add('Hello')
-# sll.insert(2,100)
-# print(sll)
-# sll.add(12)
-# print(sll)
-# sll.remove(10)
-# print(sll)
-# sll.remove('Hello')
-# print(sll)
-# sll.remove(12)
-# print(sll)
-# sll.add('full')
-# sll.add(45)
-# sll.remove(46)
-# print(sll)
-# print(len(sll))
-# print(sll.length)
+    def find(self, value):
+        index = 0
+        node_pointer = self.head
+        
+        while node_pointer is not None:
+            if node_pointer.data == value:
+                return index
+            node_pointer = node_pointer.next
+            index += 1
+        return -1
+    
+    def find_at(self, index):
+        if index >= self.length:
+            raise IndexError(f'index: {index} greater than the list length: {self.length}')
+        
+        index_ = 0
+        node_pointer = self.head
+        
+        while node_pointer is not None:
+            if index_ == index:
+                return node_pointer.data
+            node_pointer = node_pointer.next
+            index_ += 1
