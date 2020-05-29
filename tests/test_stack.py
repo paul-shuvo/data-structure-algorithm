@@ -76,3 +76,21 @@ def test_peek():
     assert stk.peek(0) == 0
     assert stk.peek(2) == 2
     assert stk.peek(4) == 4
+
+def test_change():
+    stk = Stack(5)
+    stk.push(0)
+    stk.push(1)
+    stk.push(2)
+    stk.push(3)
+    stk.push(4)
+    
+    with pytest.raises(IndexError):
+        stk.change(5, 5)
+    
+    stk.change(1, -1)
+    stk.change(2, -2)
+    stk.change(4, -4)
+    assert stk.peek(1) == -1
+    assert stk.peek(2) == -2
+    assert stk.peek(4) == -4

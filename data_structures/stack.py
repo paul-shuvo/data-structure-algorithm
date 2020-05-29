@@ -55,13 +55,14 @@ class Stack:
             count -= 1
             node = node.next
             
-# stk = Stack(5)
-# stk.push(1)
-# stk.push("hee")
-# stk.push(12.45)
-# print(stk)
-# # stk.push(stk)
-# stk2 = Stack(3)
-# stk2.push(5)
-# stk2.push(stk)
-# print(stk2)
+    def change(self, index, value):
+        if index >= self.length:
+            raise IndexError(f'index: {index} greater than the stack length: {self.length}')
+        count = self.length - 1
+        node = self.head
+        while count >= index:
+            if count == index:
+                node.data = value
+                return
+            count -= 1
+            node = node.next
