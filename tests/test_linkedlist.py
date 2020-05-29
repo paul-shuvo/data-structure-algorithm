@@ -103,3 +103,13 @@ def test_find_at():
 
     with pytest.raises(IndexError):
         assert sll.find_at(4)
+
+def test_clear():
+    sll = SinglyLinkedList()
+    sll.insert(1)
+    sll.insert(2)
+    sll.insert(3)
+    sll.insert(4)
+    sll.clear()
+    assert sll.head == None
+    assert sll.length == 0

@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, data):
+    def __init__(self, data=None):
         self.data = data
         self.next = None
     def __str__(self):
@@ -117,3 +117,7 @@ class SinglyLinkedList:
                 return node_pointer.data
             node_pointer = node_pointer.next
             index_ += 1
+    
+    def clear(self):
+        self.head = None
+        self.length = 0
